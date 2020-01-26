@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -8,7 +8,7 @@ env = Environment(
 )
 template = env.get_template("template.html")
 since_year = 1920
-current_year = datetime.now().year
+current_year = date.today().year
 years = current_year - since_year
 rendered_page = template.render(years=years)
 with open("index.html", "w", encoding="utf8") as file:
