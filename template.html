@@ -114,19 +114,29 @@
           </div>
         </div>
         <div class="row">
-          {% for index in range(6) %}
+          {% for group_name, group in wines %}
+          <div class="col-12 section-title text-center mb-5">
+            <h2 class="d-block">{{ group_name }}</h2>
+          </div>
+          {% for wine in group.to_dict(orient='records') %}
           <div class="col-lg-4 mb-5 col-md-6">
             <div class="wine_v_1 text-center pb-4 pt-5">
-              <img src="images/izabella.png" alt="Image" class="img-fluid">
+              <img src="images/{{ wine['Картинка'] }}" alt="Image" class="img-fluid">
+              {% if wine["Акция"] %}
+              <img src="images/profitable.png" style="width:10rem;height: 10rem;position:absolute;right: -20px;top: -20px;">
+              {% endif %}
               <div>
-                <h3 class="heading mt-3 mb-3 text-dark">Изабелла</h3>
+                <h3 class="heading mt-3 mb-3 text-dark">{{ wine["Название"] }}</h3>
                 <p>
-                  Сорт винограда - Изабелла<br/>
-                  <span class="price">350 р.</span>
+                  {% if group_name != 'Напитки' %}
+                  Сорт винограда - {{ wine["Сорт"] }}<br/>
+                  {% endif %}
+                  <span class="price">{{ wine["Цена"] }} р.</span>
                 </p>
               </div>
             </div>
           </div>
+          {% endfor %}
           {% endfor %}
         </div>
       </div>
